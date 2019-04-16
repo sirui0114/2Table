@@ -15,7 +15,10 @@ import entity.r_Item;
 public class rpcHelper {
 	public static void writeJsonObject(HttpServletResponse response, JSONObject obj) {
 		try {
-			response.addHeader("Access-Contol-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
+			response.addHeader("Access-Control-Allow-Credentials", "true");
+			response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 			response.setContentType("application/JSON");
 			
 			PrintWriter out = response.getWriter();
@@ -31,7 +34,10 @@ public class rpcHelper {
 	
 	public static void writeJsonArray(HttpServletResponse response, JSONArray array) {
 		try {
-			response.addHeader("Access-Contol-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			response.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
+			response.addHeader("Access-Control-Allow-Credentials", "true");
+			response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 			response.setContentType("application/JSON");
 			
 			PrintWriter out = response.getWriter();

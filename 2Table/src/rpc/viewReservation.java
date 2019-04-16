@@ -35,19 +35,26 @@ public class viewReservation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		String r_account = "";
-		if (request.getParameter("account")!= null) {
-			r_account = request.getParameter("account");
-		}
-		MySQLConnection conn = new MySQLConnection();
-		String rItemID = conn.rNameTorID(r_account);
-		
-		List<rv_Item> rvList = conn.getRvList(rItemID, null);
+		String rItemID = "";
 		JSONArray array  = new JSONArray();
-		for (rv_Item item : rvList) {
-			JSONObject obj = item.toJSONObject();
-			array.put(obj);
-		}
+		if (request.getParameter("r_Id")!= null) {
+			rItemID = request.getParameter("r_Id");
+			MySQLConnection conn = new MySQLConnection();
+			
+			List<rv_Item> rvList = conn.getRvList(rItemID, null, true);
+			for (rv_Item item : rvList) {
+				JSONObject obj = item.toJSONObject();
+				array.put(obj);
+			}	
+		}else if(request.getParameter("u_Id")!= null) {
+				rItemID = request.getParameter("u_Id");
+				MySQLConnection conn = new MySQLConnection();				
+				List<rv_Item> rvList = conn.getRvList(rItemID, null, false);
+				for (rv_Item item : rvList) {
+					JSONObject obj = item.toJSONObject();
+					array.put(obj);
+				}	
+			}
 		rpcHelper.writeJsonArray(response, array);
 	}
 

@@ -9,22 +9,38 @@ import org.json.JSONObject;
 public class r_Item {
 	private String rItemID;
 	private String rName;
-	private double rating;
 	private String address;
 	private Set<String> categories;
-	private double distance;
+	private String Rphone;
+	private String Remail;
+	private String password;
+	int capacity;
 	
 	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public int getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+	public String getRphone() {
+		return Rphone;
+	}
+	public String getRemail() {
+		return Remail;
+	}
 	public String getrItemID() {
 		return rItemID;
 	}
 
 	public String getrName() {
 		return rName;
-	}
-
-	public double getRating() {
-		return rating;
 	}
 
 	public String getAddress() {
@@ -35,20 +51,12 @@ public class r_Item {
 		return categories;
 	}
 
-	public double getDistance() {
-		return distance;
-	}
-
 	public void setrItemID(String rItemID) {
 		this.rItemID = rItemID;
 	}
 
 	public void setrName(String rName) {
 		this.rName = rName;
-	}
-
-	public void setRating(double rating) {
-		this.rating = rating;
 	}
 
 	public void setAddress(String address) {
@@ -59,28 +67,23 @@ public class r_Item {
 		this.categories = categories;
 	}
 
-	public void setDistance(double distance) {
-		this.distance = distance;
-	}
-
-	private r_Item(rItemBuilder builder) {
+	public r_Item(rItemBuilder builder) {
 		this.rItemID = builder.rItemID;
 		this.rName = builder.rName;
-		this.rating = builder.rating;
 		this.address = builder.address;
 		this.categories = builder.categories;
-		this.distance = builder.distance;
+		this.Remail = builder.Remail;
+		this.Rphone = builder.Rphone;
 	}
 	
 	public JSONObject toJSONObject() {
 		JSONObject obj = new JSONObject();
 		try {
-			obj.put("restaurant_Id", rItemID);
 			obj.put("restaurant", rName);
-			obj.put("rating", rating);
 			obj.put("address", address);
-			obj.put("categories", new JSONArray(categories));
-			obj.put("distance", distance);
+			obj.put("email", Remail);
+			obj.put("phone", Rphone);
+			obj.put("id", rItemID);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -93,7 +96,28 @@ public class r_Item {
 		private double rating;
 		private String address;
 		private Set<String> categories;
-		private double distance;
+		private String Rphone;
+		private String Remail;
+		int capacity;
+		private String password;
+		public String getPassword() {
+			return password;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
+		public int getCapacity() {
+			return capacity;
+		}
+		public void setCapacity(int capacity) {
+			this.capacity = capacity;
+		}
+		public void setRphone(String Rphone) {
+			this.Rphone = Rphone;
+		}
+		public void setRemail (String Remial) {
+			this.Remail = Remail;
+		}
 		public void setrItemID(String rItemID) {
 			this.rItemID = rItemID;
 		}
@@ -114,8 +138,5 @@ public class r_Item {
 			this.categories = categories;
 		}
 
-		public void setDistance(double distance) {
-			this.distance = distance;
-		}
 	}
 }

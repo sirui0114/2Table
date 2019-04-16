@@ -36,7 +36,7 @@ public class MySQLTableCreation {
 			sql = "DROP TABLE IF EXISTS Reservations";
 			stmt.executeUpdate(sql);
 
-			sql = "DROP TABLE IF EXISTS Restuarant";
+			sql = "DROP TABLE IF EXISTS Restaurant";
 			stmt.executeUpdate(sql);
 
 		    sql = "DROP TABLE IF EXISTS User";
@@ -44,44 +44,48 @@ public class MySQLTableCreation {
 			
 			// Step 3. Create new tables.
 
-			sql = "CREATE TABLE Restuarant " + "(Restaurant_idRestaurant VARCHAR(255) NOT NULL, " + " Rname VARCHAR(255) NOT NULL, " + "Rloc VARCHAR(255) NOT NULL," 
-					+ "Rphone VARCHAR(45)," + "Remail VARCHAR(255),"
+			sql = "CREATE TABLE Restaurant " + "(Restaurant_idRestaurant VARCHAR(255) NOT NULL, " + " Rname VARCHAR(255) NOT NULL, " + "Rloc VARCHAR(255) NOT NULL," 
+					+ "Rphone VARCHAR(45)," + "Remail VARCHAR(255)," + " capacity INT NOT NULL," + "pwd VARCHAR(255) NOT NULL,"
 					+ " PRIMARY KEY ( Restaurant_idRestaurant))" ;
 			stmt.executeUpdate(sql);
 
-			sql = "CREATE TABLE Capacity " + "(Restaurant_idRestaurant VARCHAR(255) NOT NULL, " + "  pdatetime DATETIME NOT NULL, "
-					+ " capacity INT NOT NULL," + " PRIMARY KEY ( Restaurant_idRestaurant,  pdatetime)," + "FOREIGN KEY (Restaurant_idRestaurant) REFERENCES Restuarant(Restaurant_idRestaurant))";
-			stmt.executeUpdate(sql);
-
 			sql = "CREATE TABLE User " + "(User_idUser VARCHAR(255) NOT NULL , " + "Uname  VARCHAR(255) NOT NULL, "
-					+ "Uphone VARCHAR(225), " + "Uemail VARCHAR(225)," + " PRIMARY KEY (User_idUser))";
+					+ "Uphone VARCHAR(225), " + "Uemail VARCHAR(225)," + "pwd VARCHAR(255) NOT NULL," + " PRIMARY KEY (User_idUser))";
 			stmt.executeUpdate(sql);
 			
 			sql = "CREATE TABLE Reservations " + "(idReservation VARCHAR(255) NOT NULL, " + "User_idUser VARCHAR(255), " + "Restaurant_idRestaurant VARCHAR(255),"
 					+ "psize INT(11), " + "pdatetime DATETIME,"
-					+ " PRIMARY KEY ( idReservation )," + "FOREIGN KEY (User_idUser) REFERENCES User(User_idUser)," + "FOREIGN KEY (Restaurant_idRestaurant) REFERENCES Restuarant(Restaurant_idRestaurant))";
+					+ " PRIMARY KEY ( idReservation )," + "FOREIGN KEY (User_idUser) REFERENCES User(User_idUser)," + "FOREIGN KEY (Restaurant_idRestaurant) REFERENCES Restaurant(Restaurant_idRestaurant))";
 			stmt.executeUpdate(sql);
 
 			// Step 4: insert data
 			// Create a fake restaurant
-			sql = "INSERT INTO User " + "VALUES (\"1111\", \"Joe\", \"3478653212\", \"fa@cooper.edu\")";
+			sql = "INSERT INTO User " + "VALUES (\"1111\", \"Joe\", \"3478653212\", \"fa@cooper.edu\", \"12345\")";
 
 			System.out.println("Executing query:\n" + sql);
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO User " + "VALUES (\"1112\", \"Mary\", \"3479023333\", \"mary@cooper.edu\")";
+			sql = "INSERT INTO User " + "VALUES (\"1112\", \"Mary\", \"3479023333\", \"mary@cooper.edu\", \"12345\")";
 
 			System.out.println("Executing query:\n" + sql);
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO Restuarant " + "VALUES (\"2222\", \"Amelie Pizza\", \"103 West 8th Street\", \"3478763298\", \"Amelie@gmail.com\")";
+			sql = "INSERT INTO Restaurant " + "VALUES (\"2222\", \"Amelie Pizza\", \"103 West 8th Street\", \"3478763298\", \"Amelie@gmail.com\", \"25\", \"12345\")";
 			System.out.println("Executing query:\n" + sql);
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO Restuarant " + "VALUES (\"2223\", \"Mcdonalds\", \"102 1st Avenue\", \"3472763322\", \"mc@gmail.com\")";
+			sql = "INSERT INTO Restaurant " + "VALUES (\"2223\", \"Mcdonalds\", \"102 1st Avenue\", \"3472763322\", \"mc@gmail.com\", \"15\", \"12345\")";
 			System.out.println("Executing query:\n" + sql);
 			stmt.executeUpdate(sql);
 
+			sql = "INSERT INTO Restaurant " + "VALUES (\"2444\", \"Sunburst Espresso Bar\", \"206 3rd Avenue\", \"2126741702\", \"bar@gmail.com\", \"20\", \"12345\")";
+			System.out.println("Executing query:\n" + sql);
+			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO Restaurant " + "VALUES (\"999\", \"Lucky Lee\'s\", \"67 University Pl\", \"6467797123\", \"lee@gmail.com\", \"30\", \"12345\")";
+			System.out.println("Executing query:\n" + sql);
+			stmt.executeUpdate(sql);
+			
 			sql = "INSERT INTO Reservations " + "VALUES (\"3333\", \"1111\", \"2222\", \"3\", \"2019-03-26 19:00:00\")";
 			System.out.println("Executing query:\n" + sql);
 			stmt.executeUpdate(sql);
@@ -94,17 +98,6 @@ public class MySQLTableCreation {
 			System.out.println("Executing query:\n" + sql);
 			stmt.executeUpdate(sql);
 			
-			sql = "INSERT INTO Capacity " + "VALUES (\"2222\", \"2015-11-05 19:00:00\",  \"25\")";
-			System.out.println("Executing query:\n" + sql);
-			stmt.executeUpdate(sql);
-			
-			sql = "INSERT INTO Capacity " + "VALUES (\"2223\", \"2015-11-05 19:00:00\",  \"20\")";
-			System.out.println("Executing query:\n" + sql);
-			stmt.executeUpdate(sql);
-			
-			sql = "INSERT INTO Capacity " + "VALUES (\"2223\", \"2015-11-05 18:00:00\",  \"15\")";
-			System.out.println("Executing query:\n" + sql);
-			stmt.executeUpdate(sql);
 			
 			System.out.println("Import is done successfully.");
 		} catch (Exception e) {

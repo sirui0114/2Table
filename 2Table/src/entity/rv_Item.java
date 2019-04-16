@@ -12,6 +12,20 @@ public class rv_Item {
 	private String uItemID;
 	private LocalDateTime rvTime;
 	private int rSize;
+	private r_Item r;
+	public r_Item getR() {
+		return r;
+	}
+	public u_Item getU() {
+		return u;
+	}
+	public void setR(r_Item r) {
+		this.r = r;
+	}
+	public void setU(u_Item u) {
+		this.u = u;
+	}
+	private u_Item u;
 	
 	public int getRSize() {
 		return rSize;
@@ -49,6 +63,8 @@ public class rv_Item {
 		this.uItemID = builder.uItemID;
 		this.rvTime = builder.rvTime;
 		this.rSize = builder.rSize;
+		this.r = builder.r;
+		this.u = builder.u;
 	}
 	public JSONObject toJSONObject() {
 		JSONObject obj = new JSONObject();
@@ -57,12 +73,28 @@ public class rv_Item {
 			obj.put("reservation_Id", rvItemID);
 			obj.put("user_Id", uItemID);
 			obj.put("reservation_Time", rvTime);
+			obj.put("r_item", r.toJSONObject());
+			obj.put("u_item", u.toJSONObject());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return obj;
 	}
 	public static class rvItemBuilder {
+		private r_Item r;
+		private u_Item u;
+		public r_Item getR() {
+			return r;
+		}
+		public u_Item getU() {
+			return u;
+		}
+		public void setR(r_Item r) {
+			this.r = r;
+		}
+		public void setU(u_Item u) {
+			this.u = u;
+		}
 		private String rvItemID;
 		private String rItemID;
 		private String uItemID;
