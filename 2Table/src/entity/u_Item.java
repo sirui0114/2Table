@@ -9,6 +9,14 @@ public class u_Item {
 	private String phone;
 	private String email;
 	private String password;
+	private String url;
+	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public String getUserID() {
 		return UserID;
 	}
@@ -40,11 +48,18 @@ public class u_Item {
 		this.password = password;
 	}
 	public static class uItemBuilder {
+		String url;
 		String UserID;
 		String name;
 		String phone;
 		String email;
 		String password;
+		public String getUrl() {
+			return url;
+		}
+		public void setUrl(String url) {
+			this.url = url;
+		}
 		public void setUserID(String userID) {
 			UserID = userID;
 		}
@@ -70,6 +85,7 @@ public class u_Item {
 			obj.put("email", email);
 			obj.put("phone", phone);
 			obj.put("id", UserID);
+			obj.put("url", url);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -81,5 +97,6 @@ public class u_Item {
 		this.email = builder.email;
 		this.phone = builder.phone;
 		this.password = builder.password;
+		this.url = builder.url;
 	}
 }

@@ -87,9 +87,11 @@ public class login extends HttpServlet {
 					session.setMaxInactiveInterval(10 * 60);
 					// Get user name
 					String name = conn.getName(Id, isUser);
+					String url = conn.getUrl(Id, isUser);
 					obj.put("status", "OK");
 					obj.put("user_id", Id);
 					obj.put("name", name);
+					obj.put("url", url);
 				} else {
 					response.setStatus(401);
 				}

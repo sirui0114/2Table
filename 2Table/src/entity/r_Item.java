@@ -14,6 +14,13 @@ public class r_Item {
 	private String Rphone;
 	private String Remail;
 	private String password;
+	private String url;
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	int capacity;
 	
 	
@@ -74,6 +81,9 @@ public class r_Item {
 		this.categories = builder.categories;
 		this.Remail = builder.Remail;
 		this.Rphone = builder.Rphone;
+		this.url = builder.url;
+		this.password = builder.password;
+		this.capacity = builder.capacity;
 	}
 	
 	public JSONObject toJSONObject() {
@@ -84,6 +94,7 @@ public class r_Item {
 			obj.put("email", Remail);
 			obj.put("phone", Rphone);
 			obj.put("id", rItemID);
+			obj.put("url", url);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -91,6 +102,7 @@ public class r_Item {
 	}
 	//nested static class for builder
 	public static class rItemBuilder {
+		private String url;
 		private String rItemID;
 		private String rName;
 		private double rating;
@@ -100,6 +112,12 @@ public class r_Item {
 		private String Remail;
 		int capacity;
 		private String password;
+		public String getUrl() {
+			return url;
+		}
+		public void setUrl(String url) {
+			this.url = url;
+		}
 		public String getPassword() {
 			return password;
 		}
@@ -116,7 +134,7 @@ public class r_Item {
 			this.Rphone = Rphone;
 		}
 		public void setRemail (String Remial) {
-			this.Remail = Remail;
+			this.Remail = Remial;
 		}
 		public void setrItemID(String rItemID) {
 			this.rItemID = rItemID;
