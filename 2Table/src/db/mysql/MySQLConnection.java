@@ -46,7 +46,7 @@ public class MySQLConnection {
 		}
 		//translate r_accont to restaurantID
 		try {
-			String sql = "SELECT Restaurant_idRestaurant from Restuarant WHERE Rname = ?";
+			String sql = "SELECT Restaurant_idRestaurant from Restaurant WHERE Rname = ?";
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, rName);
 			ResultSet rs = statement.executeQuery();
@@ -56,6 +56,32 @@ public class MySQLConnection {
 			System.out.println(e.getMessage());
 		}
 		return null;
+	}
+	
+	public String getUrl(String ID, boolean isUser) {
+		if (conn == null) {
+			return null;
+		}
+		try {
+			if (isUser) {
+				String sql = "SELECT url from User WHERE User_idUser = ?";
+				PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
+				statement.setString(1, ID);
+				ResultSet rs = statement.executeQuery();
+				if (rs.next())
+					return rs.getString("url");
+			}else {
+				String sql = "SELECT url from Restaurant WHERE Restaurant_idRestaurant = ?";
+				PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
+				statement.setString(1, ID);
+				ResultSet rs = statement.executeQuery();
+				if (rs.next())
+					return rs.getString("url");
+			}
+		}catch (Exception e) {
+				System.out.println(e.getMessage());
+		}
+			return null;
 	}
 	
 	public String getName(String ID, boolean isUser) {
@@ -72,7 +98,7 @@ public class MySQLConnection {
 				if (rs.next())
 					return rs.getString("Uname");
 			}else {
-				String sql = "SELECT Rname from Restuarant WHERE Restaurant_idRestaurant = ?";
+				String sql = "SELECT Rname from Restaurant WHERE Restaurant_idRestaurant = ?";
 				PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 				statement.setString(1, ID);
 				ResultSet rs = statement.executeQuery();
@@ -102,6 +128,7 @@ public class MySQLConnection {
 				builder.setRemail(rs.getString("Remail"));
 				builder.setRphone(rs.getString("Rphone"));
 				builder.setrName(rs.getString("Rname"));
+				builder.setUrl(rs.getString("url"));
 				rsList.add(new r_Item(builder));
 			}
 		}catch (Exception e) {
@@ -238,7 +265,7 @@ public class MySQLConnection {
 			return false;
 		}
 		try {
-			String sql = "REPLACE INTO Restuarant (Restaurant_idRestaurant,  capacity) VALUES (?, ?)";
+			String sql = "REPLACE INTO Restaurant (Restaurant_idRestaurant,  capacity) VALUES (?, ?)";
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, rID);
 			statement.setInt(2, capacity);
@@ -248,7 +275,23 @@ public class MySQLConnection {
 		}
 		return true;
 	}
-	
+	public int getCapacity(String rID) {
+		if (conn == null) {
+			return 0;
+		}
+		try {
+			String sql = "SELECT  capacity from Restaurant WHERE Restaurant_idRestaurant = ?";
+			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
+			statement.setString(1, rID);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("capacity");	
+			}
+		}catch (SQLException e) {
+            e.printStackTrace();
+		}
+		return 0;
+	}
 	public boolean verifyLogin(String Id, String password, boolean isUser) {
 		if (conn == null) {
 			return false;
@@ -258,7 +301,7 @@ public class MySQLConnection {
 			if (isUser) {
 				sql = "SELECT User_idUser from User WHERE User_idUser = ? and pwd = ?";
 			}else {
-				sql = "SELECT Restaurant_idRestaurant from Restuarant WHERE Restaurant_idRestaurant = ? and pwd = ?";
+				sql = "SELECT Restaurant_idRestaurant from Restaurant WHERE Restaurant_idRestaurant = ? and pwd = ?";
 			}
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, Id);
@@ -278,8 +321,22 @@ public class MySQLConnection {
 			return false;
 		}
 		try {
+			//check capacity
+			String checkCp = "SELECT psize from Reservations WHERE Restaurant_idRestaurant = ? and pdatetime = ?";
+			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(checkCp);
+			statement.setString(1, rId);
+			statement.setString(2, pdatetime);
+			ResultSet res = statement.executeQuery();
+			int sum = 0;
+			while (res.next()) {
+			      int c = res.getInt(1);
+			      sum = sum + c;
+			    }
+			if (sum + psize > getCapacity(rId)) {
+				return false;
+			}
 			String sql = "INSERT INTO Reservations VALUES (?, ?, ?, ?, ?)";
-			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
+			statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, UUID.randomUUID().toString());
 			statement.setString(2, uId);
 			statement.setString(3, rId);
@@ -297,13 +354,14 @@ public class MySQLConnection {
 			return false;
 		}
 		try {
-			String sql = "INSERT INTO  User VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO  User VALUES (?, ?, ?, ?, ?, ?)";
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, user.getUserID());
 			statement.setString(2, user.getName());
 			statement.setString(3, user.getPhone());
 			statement.setString(4, user.getEmail());
 			statement.setString(5, user.getPassword());
+			statement.setString(6, user.getUrl());
 			statement.execute();
 		}catch (SQLException e) {
             e.printStackTrace();
@@ -316,7 +374,7 @@ public class MySQLConnection {
 			return false;
 		}
 		try {
-			String sql = "INSERT INTO  Restaurant VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO  Restaurant VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, res.getrItemID());
 			statement.setString(2, res.getrName());
@@ -325,6 +383,7 @@ public class MySQLConnection {
 			statement.setString(5, res.getRemail());
 			statement.setInt(6, res.getCapacity());
 			statement.setString(7, res.getPassword());
+			statement.setString(8, res.getUrl());
 			statement.execute();
 		}catch (SQLException e) {
             e.printStackTrace();

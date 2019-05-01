@@ -2,7 +2,7 @@ package db.mysql;
 
 public class MySQLDBUtil {
 	  private static final String HOSTNAME = "localhost";
-	  private static final String PORT_NUM = "3307";
+	  private static final String PORT_NUM = "3306";
 	  public static final String DB_NAME = "2Table";
 	  private static final String USERNAME = "root";
 	  private static final String PASSWORD = "root";

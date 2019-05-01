@@ -55,12 +55,14 @@ public class register extends HttpServlet {
 				String phone = input.getString("phone");
 				String email = input.getString("email");
 				String pwd = input.getString("password");
+				String url = input.getString("url");
 				uItemBuilder builder = new uItemBuilder();
 				builder.setUserID(Id);
 				builder.setEmail(email);
 				builder.setName(name);
 				builder.setPassword(pwd);
 				builder.setPhone(phone);
+				builder.setUrl(url);
 				u_Item item = new u_Item(builder);
 				result = conn.registerU(item);
 			}else {
@@ -71,6 +73,7 @@ public class register extends HttpServlet {
 				String pwd = input.getString("password");
 				int capacity = input.getInt("capacity");
 				String address = input.getString("address");
+				String url = input.getString("url");
 				rItemBuilder builder = new rItemBuilder();
 				builder.setAddress(address);
 				builder.setCapacity(capacity);
@@ -79,6 +82,7 @@ public class register extends HttpServlet {
 				builder.setrName(name);
 				builder.setRphone(phone);
 				builder.setPassword(pwd);
+				builder.setUrl(url);
 				r_Item item = new r_Item(builder);
 				result = conn.registerR(item);
 			}
