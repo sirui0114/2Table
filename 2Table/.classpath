@@ -13,5 +13,19 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/jsonassert-1.5.0.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/jar_files/jackson-databind-2.9.8.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/mockito-all-1.10.19.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/powermock-api-mockito-1.7.4.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/powermock-module-junit4-1.5.1.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/powermock-core-1.6.5.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/powermock-module-junit4-common-2.0.0.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/powermock-api-support-1.4.9.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/objenesis-2.2.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/cglib-nodep-3.2.3.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/org.apache.servicemix.bundles.javassist-3.12.1.GA_3-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/javassist-3.12.0.GA.jar"/>
+	<classpathentry kind="lib" path="/Users/yangsirui/Downloads/powermock-reflect-1.5.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
