@@ -117,7 +117,7 @@ public class MySQLConnection {
 		}
 		List<r_Item> rsList = new ArrayList<>();
 
-		String sql = "SELECT * from Restaurant ORDER BY RAND() LIMIT 10";
+		String sql = "SELECT * from Restaurant ORDER BY RAND() LIMIT 50";
 		try {
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
@@ -153,6 +153,7 @@ public class MySQLConnection {
 				builder.setRemail(rs.getString("Remail"));
 				builder.setRphone(rs.getString("Rphone"));
 				builder.setrName(rs.getString("Rname"));
+				builder.setUrl(rs.getString("url"));
 			}
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
